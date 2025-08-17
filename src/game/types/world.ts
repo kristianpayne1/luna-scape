@@ -13,6 +13,7 @@ export interface RawChunk {
 }
 
 export interface Tile extends RawTile {
+    type: TileType;
     walkable: boolean;
 }
 
