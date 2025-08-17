@@ -1,17 +1,5 @@
-import { Chunk, TileType } from "../types/world";
+import { RawChunk, Chunk, TileType } from "../types/world";
 import { TILE_WALKABLE } from "../constants";
-
-type RawTile = {
-    type: string;
-    walkable?: boolean;
-};
-
-type RawChunk = {
-    id: string;
-    width: number;
-    height: number;
-    tiles: RawTile[][];
-};
 
 export default function useLoadChunk(raw: RawChunk): Chunk {
     return {
