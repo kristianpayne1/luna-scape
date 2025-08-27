@@ -13,6 +13,7 @@ export type Interactable = {
 };
 
 export type InteractableAction = {
-    label: string;
+    target: string;
+    verb: string;
     handler: (event: InteractionEvent) => void;
 };

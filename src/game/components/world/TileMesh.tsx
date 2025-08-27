@@ -19,7 +19,7 @@ export default function TileMesh({
         add({
             object: ref.current,
             onClick: console.log,
-            actions: [{ label: "Walk here", handler: console.log }],
+            actions: [{ verb: "Walk", target: "here", handler: console.log }],
         });
 
         return () => remove(ref.current);

@@ -1,20 +1,16 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useThree } from "@react-three/fiber";
 import useInteraction from "../../hooks/useInteraction";
+import { useGameContextMenu } from "../../../interface/hooks/useGameContextMenu";
 import { Raycaster, Vector2 } from "three";
-import { InteractableAction } from "../../types/interaction";
 
 export default function Pointer() {
     const { camera, gl } = useThree();
     const raycaster = useRef(new Raycaster());
     const mouse = useRef(new Vector2());
-    const [contextMenu, setContextMenu] = useState<{
-        x: number;
-        y: number;
-        actions: InteractableAction[];
-    } | null>(null);
 
     const { getObjects, getInteractable } = useInteraction();
+    const { showMenu, hideMenu } = useGameContextMenu();
 
     useEffect(() => {
         function castRay(event: MouseEvent) {
@@ -46,7 +42,6 @@ export default function Pointer() {
                     userData: hit.object.userData,
                 });
             }
-            setContextMenu(null);
         }
 
         function onRightClick(event: MouseEvent) {
@@ -54,10 +49,9 @@ export default function Pointer() {
             const result = castRay(event);
             if (result) {
                 const { interactable, hit } = result;
-                setContextMenu({
-                    x: event.clientX,
-                    y: event.clientY,
-                    actions: interactable.actions.map((a) => ({
+                showMenu(
+                    { x: event.clientX, y: event.clientY },
+                    interactable.actions.map((a) => ({
                         ...a,
                         handler: () =>
                             a.handler({
@@ -66,9 +60,9 @@ export default function Pointer() {
                                 userData: hit.object.userData,
                             }),
                     })),
-                });
+                );
             } else {
-                setContextMenu(null);
+                hideMenu();
             }
         }
 
