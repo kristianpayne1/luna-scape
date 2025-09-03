@@ -2,7 +2,7 @@ import { DropdownMenu } from "radix-ui";
 import { PositionXY } from "../../types/game";
 import { Action } from "../../types/game";
 import "../../styles/gamecontextmenu.css";
-import { useGameContextMenu } from "../hooks/useGameContextMenu";
+import ContextMenuContent from "./ContextMenuContent";
 
 export default function GameContextMenu({
     open,
@@ -13,31 +13,18 @@ export default function GameContextMenu({
     position: PositionXY;
     actions: Action[];
 }) {
-    const { hideMenu } = useGameContextMenu();
     return (
         <DropdownMenu.Root open={open}>
             <DropdownMenu.Portal>
-                <DropdownMenu.Content
-                    className="GameContextMenuContent"
+                <ContextMenuContent
                     style={{
                         position: "absolute",
                         top: position.y - 2,
                         left: position.x - 2,
                         zIndex: 10000,
                     }}
-                >
-                    {actions.map(({ verb, target, handler }) => (
-                        <DropdownMenu.Item
-                            className="GameContextMenuItem"
-                            onClick={() => {
-                                handler();
-                                hideMenu();
-                            }}
-                        >
-                            {verb + " " + target}
-                        </DropdownMenu.Item>
-                    ))}
-                </DropdownMenu.Content>
+                    actions={actions}
+                />
             </DropdownMenu.Portal>
         </DropdownMenu.Root>
     );
