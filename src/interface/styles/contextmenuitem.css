@@ -1,0 +1,26 @@
+/* reset */
+button {
+    all: unset;
+}
+
+.GameContextMenuItem {
+    font-size: 13px;
+    line-height: 1;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    height: 25px;
+    padding: 0 15px;
+    position: relative;
+    user-select: none;
+    outline: none;
+}
+
+.GameContextMenuItem[data-disabled] {
+    opacity: 0.6;
+    pointer-events: none;
+}
+.GameContextMenuItem[data-highlighted] {
+    background-color: black;
+    color: white;
+}

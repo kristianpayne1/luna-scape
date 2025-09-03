@@ -1,6 +1,5 @@
 
-.GameContextMenuContent,
-.GameContextMenuSubContent {
+.GameContextMenuContent {
     min-width: 100px;
     background-color: white;
     border-radius: 6px;
@@ -12,20 +11,16 @@
     animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
     will-change: transform, opacity;
 }
-.GameContextMenuContent[data-side="top"],
-.GameContextMenuSubContent[data-side="top"] {
+.GameContextMenuContent[data-side="top"] {
     animation-name: slideDownAndFade;
 }
-.GameContextMenuContent[data-side="right"],
-.GameContextMenuSubContent[data-side="right"] {
+.GameContextMenuContent[data-side="right"] {
     animation-name: slideLeftAndFade;
 }
-.GameContextMenuContent[data-side="bottom"],
-.GameContextMenuSubContent[data-side="bottom"] {
+.GameContextMenuContent[data-side="bottom"] {
     animation-name: slideUpAndFade;
 }
-.GameContextMenuContent[data-side="left"],
-.GameContextMenuSubContent[data-side="left"] {
+.GameContextMenuContent[data-side="left"] {
     animation-name: slideRightAndFade;
 }
 

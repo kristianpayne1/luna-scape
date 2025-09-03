@@ -18,7 +18,7 @@ export function InteractionProvider({ children }: { children: ReactNode }) {
         add: (interactable) => interactables.current.push(interactable),
         remove: (object) =>
             (interactables.current = interactables.current.filter(
-                (i) => i.object.uuid !== object.uuid,
+                (i) => i.object?.uuid !== object?.uuid,
             )),
         getObjects: () => interactables.current.map((i) => i.object),
         getInteractable: (object: Object3D) =>

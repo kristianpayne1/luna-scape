@@ -1,7 +1,6 @@
 import { DropdownMenu } from "radix-ui";
 import { PositionXY } from "../../types/game";
 import { Action } from "../../types/game";
-import "../../styles/gamecontextmenu.css";
 import ContextMenuContent from "./ContextMenuContent";
 
 export default function GameContextMenu({
