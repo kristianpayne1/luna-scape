@@ -31,6 +31,10 @@ export default function Pointer() {
             return { interactable, hit };
         }
 
+        function onMouseMove(event: MouseEvent) {
+            hideMenu();
+        }
+
         function onLeftClick(event: MouseEvent) {
             const result = castRay(event);
             if (result) {
@@ -68,9 +72,11 @@ export default function Pointer() {
 
         gl.domElement.addEventListener("click", onLeftClick);
         gl.domElement.addEventListener("contextmenu", onRightClick);
+        gl.domElement.addEventListener("mousemove", onMouseMove);
         return () => {
             gl.domElement.removeEventListener("click", onLeftClick);
             gl.domElement.removeEventListener("contextmenu", onRightClick);
+            gl.domElement.removeEventListener("mousemove", onMouseMove);
         };
     }, [camera, gl, getObjects, getInteractable]);
 

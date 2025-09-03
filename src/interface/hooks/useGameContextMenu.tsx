@@ -1,18 +1,12 @@
 import {
-    useState,
-    useCallback,
     createContext,
     ReactNode,
+    useCallback,
     useContext,
+    useState,
 } from "react";
-import { PositionXY } from "../../types/game";
-import { createPortal } from "react-dom";
-
-export type Action = {
-    target: string;
-    verb: string;
-    handler: () => void;
-};
+import { PositionXY, Action } from "../../types/game";
+import GameContextMenu from "../components/GameContextMenu";
 
 type GameContextMenuState = {
     isOpen: boolean;
@@ -43,9 +37,8 @@ export function useGameContextMenu() {
 }
 
 export function GameContextMenuProvider({ children }: { children: ReactNode }) {
-    const [state, setState] = useState<GameContextMenuState>(
-        GameContextInitialState,
-    );
+    const [{ isOpen, actions, position }, setState] =
+        useState<GameContextMenuState>(GameContextInitialState);
 
     const showMenu = useCallback((position: PositionXY, actions: Action[]) => {
         setState({ isOpen: true, position, actions });
@@ -58,31 +51,11 @@ export function GameContextMenuProvider({ children }: { children: ReactNode }) {
     return (
         <GameContextMenuContext.Provider value={{ showMenu, hideMenu }}>
             {children}
-            {state.isOpen &&
-                createPortal(
-                    <div
-                        style={{
-                            position: "absolute",
-                            top: state.position.y,
-                            left: state.position.x,
-                        }}
-                    >
-                        {state.actions.map(
-                            ({ target, verb, handler }, index) => (
-                                <div
-                                    key={index}
-                                    onClick={() => {
-                                        handler();
-                                        hideMenu();
-                                    }}
-                                >
-                                    <span>{verb}</span> <span>{target}</span>
-                                </div>
-                            ),
-                        )}
-                    </div>,
-                    document.body,
-                )}
+            <GameContextMenu
+                open={isOpen}
+                position={position}
+                actions={actions}
+            />
         </GameContextMenuContext.Provider>
     );
 }
